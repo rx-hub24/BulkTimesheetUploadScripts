@@ -25,13 +25,15 @@ Once installed, you will see the Tampermonkey icon in the top right corner of yo
 ## Installing Tampermonkey Scripts from This Repository
 
 To install the scripts from this repository
-Navigate to the Script: Browse through the repository and find the script you wish to install. Each script file should end with .user.js.
-View the Raw Script: Click on the desired script file, then click the "Raw" button to view the raw version of the script. This action should trigger Tampermonkey's installation window.
-Install the Script: In the Tampermonkey installation window, review the script code to ensure it's what you expect, then click "Install". The script will now be added to your Tampermonkey dashboard and automatically run on the websites it's designed for.
+
+- Navigate to the Script: Browse through the repository and find the script you wish to install. Each script file should end with .user.js.
+- View the Raw Script: Click on the desired script file, then click the "Raw" button to view the raw version of the script. This action should trigger Tampermonkey's installation window.
+- Install the Script: In the Tampermonkey installation window, review the script code to ensure it's what you expect, then click "Install". The script will now be added to your Tampermonkey dashboard and automatically run on the websites it's designed for.
 Updating Scripts
+
 Tampermonkey will automatically check for script updates by default. If you want to manually check for updates:
 
-Click the Tampermonkey icon in your browser's toolbar.
-Select "Dashboard".
-Go to the "Installed userscripts" tab.
-Click the "Check for userscript updates" button.
+- Click the Tampermonkey icon in your browser's toolbar.
+- Select "Dashboard".
+- Go to the "Installed userscripts" tab.
+- Click the "Check for userscript updates" button.
