@@ -265,131 +265,129 @@
         }
         alert("upload finished: uploaded " + numEntriesUploaded + " time sheets");
         window.location.reload();
-
-
     }
 
     function createUploadButton() {
-    // Create an input element
-    var inputBox = document.createElement('input');
-    
-    inputBox.type = 'file';
-    inputBox.accept = '.csv';
-    inputBox.style.position = 'fixed';
-    inputBox.style.top = '10px'; // Positioned below the button
-    inputBox.style.left = '40%';
-    inputBox.style.transform = 'translateX(-50%)';
-    inputBox.style.padding = '10px';
-    inputBox.style.zIndex = '10000';
-    inputBox.style.border = '1px solid #ccc';
-    inputBox.style.borderRadius = '5px';
-    inputBox.style.fontSize = '16px';
-    inputBox.style.fontFamily = 'Arial, sans-serif';
+        // Create an input element
+        var inputBox = document.createElement('input');
+        
+        inputBox.type = 'file';
+        inputBox.accept = '.csv';
+        inputBox.style.position = 'fixed';
+        inputBox.style.top = '10px'; // Positioned below the button
+        inputBox.style.left = '40%';
+        inputBox.style.transform = 'translateX(-50%)';
+        inputBox.style.padding = '10px';
+        inputBox.style.zIndex = '10000';
+        inputBox.style.border = '1px solid #ccc';
+        inputBox.style.borderRadius = '5px';
+        inputBox.style.fontSize = '16px';
+        inputBox.style.fontFamily = 'Arial, sans-serif';
 
 
-    // Create radio buttons for last month and current month
-    var radioLastMonth = document.createElement('input');
-    radioLastMonth.type = 'radio';
-    radioLastMonth.id = 'lastMonth';
-    radioLastMonth.name = 'monthChoice';
-    radioLastMonth.value = 'lastMonth';
-    radioLastMonth.style.position = 'fixed';
-    radioLastMonth.style.top = '10px';
-    radioLastMonth.style.left = '58%';
-    radioLastMonth.style.transform = 'translateX(-40%)';
+        // Create radio buttons for last month and current month
+        var radioLastMonth = document.createElement('input');
+        radioLastMonth.type = 'radio';
+        radioLastMonth.id = 'lastMonth';
+        radioLastMonth.name = 'monthChoice';
+        radioLastMonth.value = 'lastMonth';
+        radioLastMonth.style.position = 'fixed';
+        radioLastMonth.style.top = '10px';
+        radioLastMonth.style.left = '58%';
+        radioLastMonth.style.transform = 'translateX(-40%)';
 
-    var labelLastMonth = document.createElement('label');
-    labelLastMonth.htmlFor = 'lastMonth';
-    labelLastMonth.innerText = 'Last Month';
-    labelLastMonth.style.position = 'fixed';
-    labelLastMonth.style.top = '10px';
-    labelLastMonth.style.left = '58%';
-    labelLastMonth.style.transform = 'translateX(20%)';
+        var labelLastMonth = document.createElement('label');
+        labelLastMonth.htmlFor = 'lastMonth';
+        labelLastMonth.innerText = 'Last Month';
+        labelLastMonth.style.position = 'fixed';
+        labelLastMonth.style.top = '10px';
+        labelLastMonth.style.left = '58%';
+        labelLastMonth.style.transform = 'translateX(20%)';
 
-    var radioCurrentMonth = document.createElement('input');
-    radioCurrentMonth.type = 'radio';
-    radioCurrentMonth.id = 'currentMonth';
-    radioCurrentMonth.name = 'monthChoice';
-    radioCurrentMonth.value = 'currentMonth';
-    radioCurrentMonth.style.position = 'fixed';
-    radioCurrentMonth.style.top = '30px';
-    radioCurrentMonth.style.left = '58%';
-    radioCurrentMonth.style.transform = 'translateX(-40%)';
+        var radioCurrentMonth = document.createElement('input');
+        radioCurrentMonth.type = 'radio';
+        radioCurrentMonth.id = 'currentMonth';
+        radioCurrentMonth.name = 'monthChoice';
+        radioCurrentMonth.value = 'currentMonth';
+        radioCurrentMonth.style.position = 'fixed';
+        radioCurrentMonth.style.top = '30px';
+        radioCurrentMonth.style.left = '58%';
+        radioCurrentMonth.style.transform = 'translateX(-40%)';
 
-    var labelCurrentMonth = document.createElement('label');
-    labelCurrentMonth.htmlFor = 'currentMonth';
-    labelCurrentMonth.innerText = 'Current Month';
-    labelCurrentMonth.style.position = 'fixed';
-    labelCurrentMonth.style.top = '30px';
-    labelCurrentMonth.style.left = '58%';
-    labelCurrentMonth.style.transform = 'translateX(15%)';
+        var labelCurrentMonth = document.createElement('label');
+        labelCurrentMonth.htmlFor = 'currentMonth';
+        labelCurrentMonth.innerText = 'Current Month';
+        labelCurrentMonth.style.position = 'fixed';
+        labelCurrentMonth.style.top = '30px';
+        labelCurrentMonth.style.left = '58%';
+        labelCurrentMonth.style.transform = 'translateX(15%)';
 
 
-    // Create the button
-    var uploadTimesheetsBtn = document.createElement('button');
-    uploadTimesheetsBtn.innerHTML = "UPLOAD TIMESHEETS";
-    // Style the button (styles are as previously defined)
-    uploadTimesheetsBtn.style.position = 'fixed';
-    uploadTimesheetsBtn.style.top = '10px';
-    uploadTimesheetsBtn.style.left = '80%';
-    uploadTimesheetsBtn.style.transform = 'translateX(-50%)';
-    uploadTimesheetsBtn.style.backgroundColor = '#4CAF50';
-    uploadTimesheetsBtn.style.color = 'white';
-    uploadTimesheetsBtn.style.padding = '10px 20px';
-    uploadTimesheetsBtn.style.zIndex = '10000';
-    uploadTimesheetsBtn.style.border = 'none';
-    uploadTimesheetsBtn.style.borderRadius = '5px';
-    uploadTimesheetsBtn.style.cursor = 'pointer';
-    uploadTimesheetsBtn.style.fontSize = '16px';
-    uploadTimesheetsBtn.style.fontFamily = 'Arial, sans-serif';
+        // Create the button
+        var uploadTimesheetsBtn = document.createElement('button');
+        uploadTimesheetsBtn.innerHTML = "UPLOAD TIMESHEETS";
+        // Style the button (styles are as previously defined)
+        uploadTimesheetsBtn.style.position = 'fixed';
+        uploadTimesheetsBtn.style.top = '10px';
+        uploadTimesheetsBtn.style.left = '80%';
+        uploadTimesheetsBtn.style.transform = 'translateX(-50%)';
+        uploadTimesheetsBtn.style.backgroundColor = '#4CAF50';
+        uploadTimesheetsBtn.style.color = 'white';
+        uploadTimesheetsBtn.style.padding = '10px 20px';
+        uploadTimesheetsBtn.style.zIndex = '10000';
+        uploadTimesheetsBtn.style.border = 'none';
+        uploadTimesheetsBtn.style.borderRadius = '5px';
+        uploadTimesheetsBtn.style.cursor = 'pointer';
+        uploadTimesheetsBtn.style.fontSize = '16px';
+        uploadTimesheetsBtn.style.fontFamily = 'Arial, sans-serif';
 
-     // Add event listener for the button click
-    uploadTimesheetsBtn.addEventListener('click', function() {
-        if (inputBox.files.length > 0) { // Check if any file is selected
-            var file = inputBox.files[0]; // Get the selected file
-             var monthSelection = document.querySelector('input[name="monthChoice"]:checked');
+        // Add event listener for the button click
+        uploadTimesheetsBtn.addEventListener('click', function() {
+            if (inputBox.files.length > 0) { // Check if any file is selected
+                var file = inputBox.files[0]; // Get the selected file
+                var monthSelection = document.querySelector('input[name="monthChoice"]:checked');
 
-            if (!monthSelection) {
-                alert('Please select a month first.');
-                return;
-            }
-            var reader = new FileReader(); // Create a FileReader object
-
-            reader.onload = function(e) {
-                const data = e.target.result;
-                const workbook = XLSX.read(data, {
-                    type: 'binary'
-                });
-
-                // Log the first sheet's name
-                const firstSheetName = workbook.SheetNames[0];
-
-                // Convert the first sheet to JSON (an array of objects)
-                const jsonData = XLSX.utils.sheet_to_json(workbook.Sheets[firstSheetName], {raw: true});
-
-                console.log(jsonData);
-                
-                if (monthSelection.value == "lastMonth") {
-                    uploadForMultiplePersonsAndDays(jsonData, true);
-                } else {
-                    uploadForMultiplePersonsAndDays(jsonData, false);
+                if (!monthSelection) {
+                    alert('Please select a month first.');
+                    return;
                 }
-            };
+                var reader = new FileReader(); // Create a FileReader object
 
-            reader.readAsText(file); // Read the file as text
-        } else {
-            alert('Please select a file first.');
-        }
-    });
+                reader.onload = function(e) {
+                    const data = e.target.result;
+                    const workbook = XLSX.read(data, {
+                        type: 'binary'
+                    });
 
-    // Append the input box and the button to the body
-        document.body.appendChild(inputBox);
-        document.body.appendChild(radioLastMonth);
-        document.body.appendChild(labelLastMonth);
-        document.body.appendChild(radioCurrentMonth);
-        document.body.appendChild(labelCurrentMonth);
-        document.body.appendChild(uploadTimesheetsBtn);
-}
+                    // Log the first sheet's name
+                    const firstSheetName = workbook.SheetNames[0];
+
+                    // Convert the first sheet to JSON (an array of objects)
+                    const jsonData = XLSX.utils.sheet_to_json(workbook.Sheets[firstSheetName], {raw: true});
+
+                    console.log(jsonData);
+                    
+                    if (monthSelection.value == "lastMonth") {
+                        uploadForMultiplePersonsAndDays(jsonData, true);
+                    } else {
+                        uploadForMultiplePersonsAndDays(jsonData, false);
+                    }
+                };
+
+                reader.readAsText(file); // Read the file as text
+            } else {
+                alert('Please select a file first.');
+            }
+        });
+
+        // Append the input box and the button to the body
+            document.body.appendChild(inputBox);
+            document.body.appendChild(radioLastMonth);
+            document.body.appendChild(labelLastMonth);
+            document.body.appendChild(radioCurrentMonth);
+            document.body.appendChild(labelCurrentMonth);
+            document.body.appendChild(uploadTimesheetsBtn);
+    }
 
 
     // Call the function
