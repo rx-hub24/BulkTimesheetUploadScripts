@@ -3,7 +3,7 @@
 // @namespace    http://tampermonkey.net/
 // @version      1.0
 // @description  Adds a button at the top middle of every webpage that redirects to Google.
-// @author       Your Name
+// @author       Emma Nipperess
 // @match        https://hub24.elmotalent.com.au/payroll/v5
 // @grant        none
 // ==/UserScript==
@@ -18,7 +18,7 @@
     openTimesheetsBtn.style.top = '10px'; // Adjusted to not be exactly at the edge
     openTimesheetsBtn.style.left = '50%'; // Center the button horizontally
     openTimesheetsBtn.style.transform = 'translateX(-50%)'; // Adjust for exact centering
-    openTimesheetsBtn.style.backgroundColor = '#4CAF50'; // A pleasant green
+    openTimesheetsBtn.style.backgroundColor = '#4CAF50'; // green
     openTimesheetsBtn.style.color = 'white';
     openTimesheetsBtn.style.padding = '10px 20px';
     openTimesheetsBtn.style.zIndex = '10000'; // Ensure it's on top of other content

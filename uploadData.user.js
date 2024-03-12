@@ -52,7 +52,7 @@
 
 
     async function performBulkUpload(employeeId, payload) {
-        // Define headers (assuming you have headers defined somewhere in your original code)
+        
         const headers = {
             'Accept': 'application/json, text/javascript, */*; q=0.01',
             'Content-Type': 'application/json; charset=UTF-8',
@@ -370,7 +370,7 @@
                 const jsonData = XLSX.utils.sheet_to_json(workbook.Sheets[firstSheetName], {raw: true});
 
                 console.log(jsonData);
-                // Assuming uploadForMultiplePersonsAndDays is another function you have
+                
                 if (monthSelection.value == "lastMonth") {
                     uploadForMultiplePersonsAndDays(jsonData, true);
                 } else {
