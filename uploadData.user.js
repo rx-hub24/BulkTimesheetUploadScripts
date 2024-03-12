@@ -391,12 +391,10 @@
 
 
     // Call the function
-    if (window.location.hostname !== "https://elmo.yourpayroll.com.au") {
+    if (window.location.hostname !== "elmo.yourpayroll.com.au") {
         console.log("This script only runs on https://elmo.yourpayroll.com.au");
     } else {
         createUploadButton()
         console.log("performing the upload");
     }
-    
-   
 })();
