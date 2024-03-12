@@ -289,64 +289,64 @@
     inputBox.style.fontFamily = 'Arial, sans-serif';
 
 
-// Create radio buttons for last month and current month
-var radioLastMonth = document.createElement('input');
-radioLastMonth.type = 'radio';
-radioLastMonth.id = 'lastMonth';
-radioLastMonth.name = 'monthChoice';
-radioLastMonth.value = 'lastMonth';
-radioLastMonth.style.position = 'fixed';
-radioLastMonth.style.top = '10px';
-radioLastMonth.style.left = '58%';
-radioLastMonth.style.transform = 'translateX(-40%)';
+    // Create radio buttons for last month and current month
+    var radioLastMonth = document.createElement('input');
+    radioLastMonth.type = 'radio';
+    radioLastMonth.id = 'lastMonth';
+    radioLastMonth.name = 'monthChoice';
+    radioLastMonth.value = 'lastMonth';
+    radioLastMonth.style.position = 'fixed';
+    radioLastMonth.style.top = '10px';
+    radioLastMonth.style.left = '58%';
+    radioLastMonth.style.transform = 'translateX(-40%)';
 
-var labelLastMonth = document.createElement('label');
-labelLastMonth.htmlFor = 'lastMonth';
-labelLastMonth.innerText = 'Last Month';
-labelLastMonth.style.position = 'fixed';
-labelLastMonth.style.top = '10px';
-labelLastMonth.style.left = '58%';
-labelLastMonth.style.transform = 'translateX(20%)';
+    var labelLastMonth = document.createElement('label');
+    labelLastMonth.htmlFor = 'lastMonth';
+    labelLastMonth.innerText = 'Last Month';
+    labelLastMonth.style.position = 'fixed';
+    labelLastMonth.style.top = '10px';
+    labelLastMonth.style.left = '58%';
+    labelLastMonth.style.transform = 'translateX(20%)';
 
-var radioCurrentMonth = document.createElement('input');
-radioCurrentMonth.type = 'radio';
-radioCurrentMonth.id = 'currentMonth';
-radioCurrentMonth.name = 'monthChoice';
-radioCurrentMonth.value = 'currentMonth';
-radioCurrentMonth.style.position = 'fixed';
-radioCurrentMonth.style.top = '30px';
-radioCurrentMonth.style.left = '58%';
-radioCurrentMonth.style.transform = 'translateX(-40%)';
+    var radioCurrentMonth = document.createElement('input');
+    radioCurrentMonth.type = 'radio';
+    radioCurrentMonth.id = 'currentMonth';
+    radioCurrentMonth.name = 'monthChoice';
+    radioCurrentMonth.value = 'currentMonth';
+    radioCurrentMonth.style.position = 'fixed';
+    radioCurrentMonth.style.top = '30px';
+    radioCurrentMonth.style.left = '58%';
+    radioCurrentMonth.style.transform = 'translateX(-40%)';
 
-var labelCurrentMonth = document.createElement('label');
-labelCurrentMonth.htmlFor = 'currentMonth';
-labelCurrentMonth.innerText = 'Current Month';
-labelCurrentMonth.style.position = 'fixed';
-labelCurrentMonth.style.top = '30px';
-labelCurrentMonth.style.left = '58%';
-labelCurrentMonth.style.transform = 'translateX(15%)';
+    var labelCurrentMonth = document.createElement('label');
+    labelCurrentMonth.htmlFor = 'currentMonth';
+    labelCurrentMonth.innerText = 'Current Month';
+    labelCurrentMonth.style.position = 'fixed';
+    labelCurrentMonth.style.top = '30px';
+    labelCurrentMonth.style.left = '58%';
+    labelCurrentMonth.style.transform = 'translateX(15%)';
 
 
     // Create the button
-    var googleButton = document.createElement('button');
-    googleButton.innerHTML = "UPLOAD TIMESHEETS";
+    var uploadTimesheetsBtn = document.createElement('button');
+    uploadTimesheetsBtn.innerHTML = "UPLOAD TIMESHEETS";
     // Style the button (styles are as previously defined)
-    googleButton.style.position = 'fixed';
-    googleButton.style.top = '10px';
-    googleButton.style.left = '80%';
-    googleButton.style.transform = 'translateX(-50%)';
-    googleButton.style.backgroundColor = '#4CAF50';
-    googleButton.style.color = 'white';
-    googleButton.style.padding = '10px 20px';
-    googleButton.style.zIndex = '10000';
-    googleButton.style.border = 'none';
-    googleButton.style.borderRadius = '5px';
-    googleButton.style.cursor = 'pointer';
-    googleButton.style.fontSize = '16px';
-    googleButton.style.fontFamily = 'Arial, sans-serif';
+    uploadTimesheetsBtn.style.position = 'fixed';
+    uploadTimesheetsBtn.style.top = '10px';
+    uploadTimesheetsBtn.style.left = '80%';
+    uploadTimesheetsBtn.style.transform = 'translateX(-50%)';
+    uploadTimesheetsBtn.style.backgroundColor = '#4CAF50';
+    uploadTimesheetsBtn.style.color = 'white';
+    uploadTimesheetsBtn.style.padding = '10px 20px';
+    uploadTimesheetsBtn.style.zIndex = '10000';
+    uploadTimesheetsBtn.style.border = 'none';
+    uploadTimesheetsBtn.style.borderRadius = '5px';
+    uploadTimesheetsBtn.style.cursor = 'pointer';
+    uploadTimesheetsBtn.style.fontSize = '16px';
+    uploadTimesheetsBtn.style.fontFamily = 'Arial, sans-serif';
 
      // Add event listener for the button click
-    googleButton.addEventListener('click', function() {
+    uploadTimesheetsBtn.addEventListener('click', function() {
         if (inputBox.files.length > 0) { // Check if any file is selected
             var file = inputBox.files[0]; // Get the selected file
              var monthSelection = document.querySelector('input[name="monthChoice"]:checked');
@@ -390,7 +390,7 @@ labelCurrentMonth.style.transform = 'translateX(15%)';
         document.body.appendChild(labelLastMonth);
         document.body.appendChild(radioCurrentMonth);
         document.body.appendChild(labelCurrentMonth);
-        document.body.appendChild(googleButton);
+        document.body.appendChild(uploadTimesheetsBtn);
 }
 
 
@@ -398,6 +398,4 @@ labelCurrentMonth.style.transform = 'translateX(15%)';
     createUploadButton()
     console.log("performing the upload");
 
-
-//performBulkUpload(uploadUrl, payload);
 })();
