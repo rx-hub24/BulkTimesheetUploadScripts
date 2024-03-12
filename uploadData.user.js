@@ -162,8 +162,6 @@
                     var returnVal = excelDateToJSDate(dateString);
                     var dateVal = returnVal[0];
                     curMonth = returnVal[1];
-                    console.log(dateVal);
-                    console.log(curMonth);
 
                 } else {
                     var [day, mnth, year] = dateString.split('/');
@@ -220,7 +218,7 @@
 
     function getLastMonth() {
         let date = new Date(); // Gets the current date and time
-        let lastMonth = new Date(date.setMonth(date.getMonth())); // Subtract one month from the current date
+        let lastMonth = new Date(date.setMonth(date.getMonth())); 
 
         console.log(lastMonth.getMonth());
 
@@ -229,7 +227,7 @@
 
     function getCurrentMonth() {
         let date = new Date(); // Gets the current date and time
-        let lastMonth = new Date(date.setMonth(date.getMonth()+1)); // Subtract one month from the current date
+        let lastMonth = new Date(date.setMonth(date.getMonth()+1)); 
 
         console.log(lastMonth.getMonth());
 
