@@ -2,7 +2,7 @@
 // @name         Run script
 // @namespace    http://tampermonkey.net/
 // @version      1.0
-// @description  Adds a button at the top middle of every webpage that redirects to Google.
+// @description  Adds a button at the top of people hub to redirect to timesheeting page.
 // @author       Emma Nipperess
 // @match        https://elmo.yourpayroll.com.au/Employee/*
 // @require      https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js
