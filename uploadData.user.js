@@ -11,48 +11,47 @@
 // ==/UserScript==
 
 (function() {
-   function generateTimesheet(employeeId, startTime, endTime, breaks = []) {
-       return {
-           "ReadOnly": false,
-           "IsPublicHoliday": false,
-           "LocationName": null,
-           "DimensionValueIds": [],
-           "Id": 0,
-           "Status": 0,
-           "Start": startTime,
-           "End": endTime,
-           "EmployeeId": employeeId,
-           "Breaks": breaks.map(b => ({
-               "Start": b.start,
-               "End": b.end,
-               "IsPaidBreak": b.isPaid || false
-           })),
-           "IsNew": true,
-           "Units": null,
-           "ClassificationId": null,
-           "WorkTypeId": null,
-           "WorkTypeName": null,
-           "LocationId": null,
-           "Comments": null,
-           "ExternalReferenceId": null,
-           "LeaveRequestId": null,
-           "IsLocked": false,
-           "Attachment": {
-               "Id": null,
-               "Url": null,
-               "FriendlyName": null,
-               "DateCreated": null,
-               "IsInfected": false
-           },
-           "ShiftConditionIds": [],
-           "ClassificationName": null,
-           "Source": 0
-       };
-   }
-
+    function generateTimesheet(employeeId, startTime, endTime, breaks = []) {
+        return {
+            "ReadOnly": false,
+            "IsPublicHoliday": false,
+            "LocationName": null,
+            "DimensionValueIds": [],
+            "Id": 0,
+            "Status": 0,
+            "Start": startTime,
+            "End": endTime,
+            "EmployeeId": employeeId,
+            "Breaks": breaks.map(b => ({
+                "Start": b.start,
+                "End": b.end,
+                "IsPaidBreak": b.isPaid || false
+            })),
+            "IsNew": true,
+            "Units": null,
+            "ClassificationId": null,
+            "WorkTypeId": null,
+            "WorkTypeName": null,
+            "LocationId": null,
+            "Comments": null,
+            "ExternalReferenceId": null,
+            "LeaveRequestId": null,
+            "IsLocked": false,
+            "Attachment": {
+                "Id": null,
+                "Url": null,
+                "FriendlyName": null,
+                "DateCreated": null,
+                "IsInfected": false
+            },
+            "ShiftConditionIds": [],
+            "ClassificationName": null,
+            "Source": 0
+        };
+    }
+ 
 
     async function performBulkUpload(employeeId, payload) {
-        
         const headers = {
             'Accept': 'application/json, text/javascript, */*; q=0.01',
             'Content-Type': 'application/json; charset=UTF-8',
@@ -69,7 +68,7 @@
             method: 'POST',
             body: JSON.stringify(payload),
             headers: headers,
-            credentials: 'include', // This will ensure cookies are sent with the request
+            credentials: 'include', 
             //mode: 'no-cors'  // setting mode to no-cors
         });
 
@@ -82,7 +81,12 @@
         }
     }
 
-
+    /*
+    This function is to fix the date convertion that js
+    automatically does when reading csv file. It converts
+    dates in date integers, but reads the dates as if they 
+    are in mm/dd/yyyy so need to switch the month and date around
+    */
     function formatDate(date) {
         const day = date.getDate();
         const month = date.getMonth() + 1; // Months are 0-indexed
@@ -131,30 +135,19 @@
         var fields = csvString
         console.log(fields.length);
 
-
-        // Number of fields per record
-        const fieldsPerRecord = 8;
         const outputData = [];
 
-        // Iterate through fields in steps of `fieldsPerRecord` to process each record
+        // Iterate through each entry
         for (let i = 0; i < fields.length; i += 1) {
             console.log(i);
 
             // Extract fields for the current record
             const entry = fields[i];
-            console.log(entry);
 
             const name = entry["Created By"];
-            console.log(name);
             if (name == employee) {
                 const dateString = entry["Date"];
-                console.log(dateString);
                 const hours = entry["Hours"];
-                console.log(hours);
-
-                console.log("Date string");
-                console.log(dateString);
-                console.log(typeof dateString);
 
                 var curMonth = null;
 
@@ -171,7 +164,6 @@
                 }
 
                 // Check if the month matches
-                console.log(month)
                 if (month == curMonth) {
                     console.log("month matches");
                     const ausStart = new Date(dateVal.setHours(9, 0, 0, 0));
@@ -218,7 +210,7 @@
 
     function getLastMonth() {
         let date = new Date(); // Gets the current date and time
-        let lastMonth = new Date(date.setMonth(date.getMonth())); 
+        let lastMonth = new Date(date.setMonth(date.getMonth()));
 
         console.log(lastMonth.getMonth());
 
@@ -227,7 +219,7 @@
 
     function getCurrentMonth() {
         let date = new Date(); // Gets the current date and time
-        let lastMonth = new Date(date.setMonth(date.getMonth()+1)); 
+        let lastMonth = new Date(date.setMonth(date.getMonth()+1));
 
         console.log(lastMonth.getMonth());
 
@@ -265,12 +257,12 @@
         }
         alert("upload finished: uploaded " + numEntriesUploaded + " time sheets");
         window.location.reload();
-    }
-
-    function createUploadButton() {
+     }
+ 
+     function createUploadButton() {
         // Create an input element
         var inputBox = document.createElement('input');
-        
+
         inputBox.type = 'file';
         inputBox.accept = '.csv';
         inputBox.style.position = 'fixed';
@@ -366,7 +358,7 @@
                     const jsonData = XLSX.utils.sheet_to_json(workbook.Sheets[firstSheetName], {raw: true});
 
                     console.log(jsonData);
-                    
+
                     if (monthSelection.value == "lastMonth") {
                         uploadForMultiplePersonsAndDays(jsonData, true);
                     } else {
@@ -391,10 +383,15 @@
 
 
     // Call the function
-    if (window.location.hostname !== "elmo.yourpayroll.com.au") {
-        console.log("This script only runs on https://elmo.yourpayroll.com.au");
-    } else {
+    if (window.self === window.top) {
         createUploadButton()
+        console.log(window.location.href);
+
         console.log("performing the upload");
+    } else {
+
+        console.log("This script only runs on https://elmo.yourpayroll.com.au");
+
     }
-})();
+ })();
+ 
