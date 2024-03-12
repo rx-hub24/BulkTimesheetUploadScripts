@@ -2,7 +2,7 @@
 // @name         Timesheets Button
 // @namespace    http://tampermonkey.net/
 // @version      1.0
-// @description  Adds a button at the top middle of every webpage that redirects to Google.
+// @description  Adds a button at the top middle of every webpage that redirects to elmo.
 // @author       Emma Nipperess
 // @match        https://hub24.elmotalent.com.au/payroll/v5
 // @grant        none
