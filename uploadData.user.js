@@ -49,7 +49,7 @@
             "Source": 0
         };
     }
- 
+
 
     async function performBulkUpload(employeeId, payload) {
         const headers = {
@@ -68,7 +68,7 @@
             method: 'POST',
             body: JSON.stringify(payload),
             headers: headers,
-            credentials: 'include', 
+            credentials: 'include',
             //mode: 'no-cors'  // setting mode to no-cors
         });
 
@@ -84,7 +84,7 @@
     /*
     This function is to fix the date convertion that js
     automatically does when reading csv file. It converts
-    dates in date integers, but reads the dates as if they 
+    dates in date integers, but reads the dates as if they
     are in mm/dd/yyyy so need to switch the month and date around
     */
     function formatDate(date) {
@@ -128,14 +128,67 @@
         }
     }
 
+    function aggregateData(hoursByDate) {
+        const outputData = [];
+        const employeeId = getEmployeeIdFromURL();
+        console.log(hoursByDate);
+        console.log("collected hours");
+        const breakLength = 0.5;
+        let breakStart;
+        let breakEnd;
+        let totalHours;
+        let date;
+
+        // Generate final outputData from hoursByDate
+        let breaks;
+        hoursByDate.forEach((value, key) => {
+            breaks = []
+            totalHours = value.totalHours;
+            date = value.date;
+            console.log(totalHours);
+
+            const ausStart = new Date(date.setHours(9, 0, 0, 0));
+            // Convert to the correct UTC time representing 9 AM local time
+            const timeZoneOffsetInMs = ausStart.getTimezoneOffset() * 60 * 1000;
+            const startDateTime = new Date(ausStart.getTime() - timeZoneOffsetInMs);
+
+            if (totalHours > 4) {
+             breakStart = new Date(startDateTime.getTime() + 3 * 60 * 60 * 1000);
+             breakEnd = new Date(breakStart.getTime() + 30 * 60 * 1000);
+             breaks.push({
+                start: breakStart.toISOString(),
+                end: breakEnd.toISOString(),
+                isPaid: false
+             });}
+
+            const endDateTime = new Date(startDateTime.getTime() + (totalHours + breakLength) * 60 * 60 * 1000);
+
+            const entry = {
+                employeeId: employeeId || "Unknown",
+                daysWorked: [{
+                    startTime: startDateTime.toISOString(),
+                    endTime: endDateTime.toISOString(),
+                    breaks: breaks
+                }]
+            };
+
+            outputData.push(entry);
+        });
+
+        // Assuming we're logging the output data as a string for demonstration
+        console.log(outputData);
+        return outputData
+    }
+
+
     function processCsvData(csvString, month) {
         const employee = getEmployeeName();
-        const employeeId = getEmployeeIdFromURL();
+        
         console.log("Processing csv data");
         var fields = csvString
         console.log(fields.length);
 
-        const outputData = [];
+        const hoursByDate = new Map();
 
         // Iterate through each entry
         for (let i = 0; i < fields.length; i += 1) {
@@ -147,65 +200,44 @@
             const name = entry["Created By"];
             if (name == employee) {
                 const dateString = entry["Date"];
-                const hours = entry["Hours"];
-
-                var curMonth = null;
+                let hours = parseFloat(entry["Hours"]);
+                let dateVal;
+                let curMonth;
+                let dateKey;
 
                 if (Number.isInteger(dateString)) {
                     var returnVal = excelDateToJSDate(dateString);
-                    var dateVal = returnVal[0];
+                    dateVal = returnVal[0];
                     curMonth = returnVal[1];
+                    dateKey = dateVal.toISOString().slice(0, 10);
 
                 } else {
                     var [day, mnth, year] = dateString.split('/');
                     curMonth = mnth;
                     console.log(curMonth);
                     dateVal = new Date(`${year}-${curMonth}-${day}`);
+                    dateKey = `${year}-${mnth.padStart(2, '0')}-${day.padStart(2, '0')}`; // YYYY-MM-DD format
+
                 }
 
                 // Check if the month matches
                 if (month == curMonth) {
-                    console.log("month matches");
-                    const ausStart = new Date(dateVal.setHours(9, 0, 0, 0));
-                    // Calculate the local time zone offset and convert it to milliseconds
-                    const timeZoneOffsetInMs = ausStart.getTimezoneOffset() * 60 * 1000;
-                    // Adjust the date by the time zone offset to get the correct UTC time representing 9 AM local time
-                    const startDateTime = new Date(dateVal.getTime() - timeZoneOffsetInMs);
-
-                    var breakL = 0;
-                    const breaks = [];
-                    if (hours > 4) {
-                        breakL = 0.5;
-                        const breakStart = new Date(startDateTime.getTime() + 3 * 60 * 60 * 1000);
-                        const breakEnd = new Date(breakStart.getTime() + 30 * 60 * 1000);
-                        breaks.push({
-                            start: breakStart.toISOString(),
-                            end: breakEnd.toISOString(),
-                            isPaid: false
+                    if (!hoursByDate.has(dateKey)) {
+                        hoursByDate.set(dateKey, {
+                            totalHours: 0,
+                            date: dateVal
                         });
                     }
 
-                    const endDateTime = new Date(startDateTime.getTime() + (hours + breakL) * 60 * 60 * 1000);
+                    const dayData = hoursByDate.get(dateKey);
+                    dayData.totalHours += hours;
 
-                    const entry = {
-                        employeeId: employeeId || "Unknown", // Use empMap to lookup employee ID
-                        daysWorked: [{
-                            startTime: startDateTime.toISOString(),
-                            endTime: endDateTime.toISOString(),
-                            breaks: breaks
-                        }]
-                    };
-
-                    console.log(entry);
-
-                    outputData.push(entry);
                 }
             }
         }
 
-        // Assuming we're logging the output data as a string for demonstration
-        console.log(JSON.stringify(outputData, null, 4));
-        return outputData
+        var data = aggregateData(hoursByDate);
+        return data;
     }
 
     function getLastMonth() {
@@ -235,7 +267,7 @@
             chosenMonth = getCurrentMonth();
         }
 
-        var data = processCsvData(input, chosenMonth)
+        var data = processCsvData(input, chosenMonth);
         var numEntriesUploaded = 0;
         for (const entry of data) {
             const { employeeId, daysWorked } = entry;
@@ -258,7 +290,7 @@
         alert("upload finished: uploaded " + numEntriesUploaded + " time sheets");
         window.location.reload();
      }
- 
+
      function createUploadButton() {
         // Create an input element
         var inputBox = document.createElement('input');
@@ -394,4 +426,3 @@
 
     }
  })();
- 
