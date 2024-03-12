@@ -28,6 +28,8 @@ To install the scripts from this repository
 
 - Navigate to the Script: Browse through the repository and click on each script. Each script file should end with .user.js.
 - View the Raw Script: Click on the desired script file, then click the "Raw" button to view the raw version of the script. This action should trigger Tampermonkey's installation window.
+![raw button](rawButton.png "Raw button")
+
 - Install the Script: In the Tampermonkey installation window, review the script code to ensure it's what you expect, then click "Install". The script will now be added to your Tampermonkey dashboard and automatically run on the websites it's designed for.
 Updating Scripts
 
