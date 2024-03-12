@@ -31,8 +31,10 @@ To install the scripts from this repository
 ![raw button](media/rawButton.png "Raw button")
 
 - Install the Script: In the Tampermonkey installation window, review the script code to ensure it's what you expect, then click "Install". The script will now be added to your Tampermonkey dashboard and automatically run on the websites it's designed for.
-Updating Scripts
+
 ![install button](media/installButton.png "Install button")
+
+### Updating Scripts
 
 Tampermonkey will automatically check for script updates by default. If you want to manually check for updates:
 
