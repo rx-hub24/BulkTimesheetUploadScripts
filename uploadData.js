@@ -5,7 +5,7 @@
 // @description  Adds a button at the top middle of every webpage that redirects to Google.
 // @author       Emma Nipperess
 // @match        https://elmo.yourpayroll.com.au/Employee/*
-// @require      https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js
+// @require      https://github.com/en-hub24/BulkTimesheetUploadScripts/blob/master/helperLibrary.js
 
 // @grant        none
 // ==/UserScript==
