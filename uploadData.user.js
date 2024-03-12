@@ -198,7 +198,8 @@
             const entry = fields[i];
 
             const name = entry["Created By"];
-            if (name == employee) {
+            
+            if (name == null || name == employee) {
                 const dateString = entry["Date"];
                 let hours = parseFloat(entry["Hours"]);
                 let dateVal;
@@ -350,7 +351,6 @@
         // Create the button
         var uploadTimesheetsBtn = document.createElement('button');
         uploadTimesheetsBtn.innerHTML = "UPLOAD TIMESHEETS";
-        // Style the button (styles are as previously defined)
         uploadTimesheetsBtn.style.position = 'fixed';
         uploadTimesheetsBtn.style.top = '10px';
         uploadTimesheetsBtn.style.left = '80%';
@@ -405,16 +405,17 @@
         });
 
         // Append the input box and the button to the body
-            document.body.appendChild(inputBox);
-            document.body.appendChild(radioLastMonth);
-            document.body.appendChild(labelLastMonth);
-            document.body.appendChild(radioCurrentMonth);
-            document.body.appendChild(labelCurrentMonth);
-            document.body.appendChild(uploadTimesheetsBtn);
+        document.body.appendChild(inputBox);
+        document.body.appendChild(radioLastMonth);
+        document.body.appendChild(labelLastMonth);
+        document.body.appendChild(radioCurrentMonth);
+        document.body.appendChild(labelCurrentMonth);
+        document.body.appendChild(uploadTimesheetsBtn);
     }
 
 
-    // Call the function
+    // Call the function only if user is at correct website
+    // will not show if website is inserted as frame
     if (window.self === window.top) {
         createUploadButton()
         console.log(window.location.href);
