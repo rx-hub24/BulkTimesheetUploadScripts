@@ -81,6 +81,32 @@
         }
     }
 
+    function formatDateFromISOString(isoString) {
+        const date = new Date(isoString);
+    
+        // Get the day, month, and year from the date object
+        const day = date.getDate().toString().padStart(2, '0'); // Ensure two digits
+        const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Ensure two digits, month is 0-indexed
+        const year = date.getFullYear();
+    
+        // Construct the date string in dd/mm/yyyy format
+        return `${day}/${month}/${year}`;
+    }    
+
+    function getHoursDifference(start, end) {
+        // Parse the start and end times into Date objects
+        const startTime = new Date(start);
+        const endTime = new Date(end);
+    
+        // Calculate the difference in milliseconds
+        const differenceInMilliseconds = endTime - startTime;
+    
+        // Convert milliseconds to hours (1000 milliseconds = 1 second, 3600 seconds = 1 hour)
+        const differenceInHours = differenceInMilliseconds / (1000 * 3600);
+    
+        return differenceInHours;
+    }
+
     /*
     This function is to fix the date convertion that js
     automatically does when reading csv file. It converts
@@ -241,6 +267,59 @@
         return data;
     }
 
+    function showTimesheetPopup(day, numHours) {
+        // Check if the container for popups exists; if not, create it
+        let container = document.getElementById("popup-container");
+        if (!container) {
+            container = document.createElement("div");
+            container.id = "popup-container";
+            document.body.appendChild(container);
+            
+            // Style the container. Adjust as needed.
+            container.style.position = "fixed";
+            container.style.bottom = "20px";
+            container.style.right = "20px";
+            container.style.zIndex = "1000";
+        }
+
+        // Create the popup message element
+        const popup = document.createElement("div");
+        popup.className = "popup-message";
+        popup.innerHTML = `
+            <strong>Timesheet Uploaded:</strong> ${day}, ${numHours} hours
+            <span class="close-btn">&times;</span>
+        `;
+        
+        // Style the popup. Adjust styles as needed.
+        popup.style.background = "#4CAF50";
+        popup.style.border = "1px solid #ccc";
+        popup.style.borderRadius = "5px";
+        popup.style.padding = "10px";
+        popup.style.marginTop = "5px"; // For stacking
+        popup.style.boxShadow = "0 2px 4px rgba(0,0,0,.5)";
+
+       // Modified close functionality to check if it's the last popup
+        popup.querySelector(".close-btn").onclick = function() {
+            popup.remove(); // Remove the clicked popup
+            // Check if it was the last popup and reload the page if so
+            if (!container.hasChildNodes()) {
+                window.location.reload();
+            }
+        };
+
+        // Append the popup to the container
+        container.appendChild(popup);
+
+        // Automatically remove the popup after 60 seconds and check if the page should reload
+        setTimeout(() => {
+            popup.remove(); // Remove the popup
+            // After removal, check if there are no more popups and reload the page if so
+            if (!container.hasChildNodes()) {
+                window.location.reload();
+            }
+        }, 60000); // 60,000 milliseconds = 60 seconds
+    }
+
     function getLastMonth() {
         let date = new Date(); // Gets the current date and time
         let lastMonth = new Date(date.setMonth(date.getMonth()));
@@ -260,7 +339,7 @@
     }
 
 
-    async function uploadForMultiplePersonsAndDays(input, lastMonth) {
+    async function uploadAllDays(input, lastMonth) {
         var chosenMonth = null;
         if (lastMonth) {
             chosenMonth = getLastMonth();
@@ -270,10 +349,17 @@
 
         var data = processCsvData(input, chosenMonth);
         var numEntriesUploaded = 0;
+        let hours;
+        let datey;
         for (const entry of data) {
             const { employeeId, daysWorked } = entry;
             const timesheets = daysWorked.map(day => {
                 const { startTime, endTime, breaks } = day;
+                hours = getHoursDifference(startTime, endTime);
+                if (hours > 4) {
+                    hours = hours - 0.5;
+                }
+                datey = formatDateFromISOString(startTime);
                 return generateTimesheet(employeeId, startTime, endTime, breaks);
             });
 
@@ -286,10 +372,9 @@
 
             console.log("performing the upload for employee", employeeId);
             await performBulkUpload(employeeId, payload);
+            showTimesheetPopup(datey, hours);
             numEntriesUploaded += 1;
         }
-        alert("upload finished: uploaded " + numEntriesUploaded + " time sheets");
-        window.location.reload();
      }
 
      function createUploadButton() {
@@ -392,9 +477,9 @@
                     console.log(jsonData);
 
                     if (monthSelection.value == "lastMonth") {
-                        uploadForMultiplePersonsAndDays(jsonData, true);
+                        uploadAllDays(jsonData, true);
                     } else {
-                        uploadForMultiplePersonsAndDays(jsonData, false);
+                        uploadAllDays(jsonData, false);
                     }
                 };
 
