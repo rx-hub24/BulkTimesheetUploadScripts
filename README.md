@@ -50,7 +50,7 @@ Tampermonkey will automatically check for script updates by default. If you want
 
 ![goto](media/gotoButton.png "Goto button")
 
-3. Upload the timesheeting csv via the "Choose file" button (this CSV is downloaded from the lists as the "Export to CSV" option as pictured below)
+3. Upload the timesheeting csv via the "Choose file" button (this CSV is downloaded from the (Sharepoint Lists)[https://hub24office365.sharepoint.com/sites/Techterns/Lists/Timesheet/Intern%20Individual%20Timesheet.aspx] as the "Export to CSV" option as pictured below)
 
 ![csv](media/csvToDownload.png "CSV button")
 
