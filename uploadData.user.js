@@ -11,6 +11,10 @@
 // ==/UserScript==
 
 (function() {
+    function showAlert(message) {
+        alert("Error: " + message);
+    }
+    
     function generateTimesheet(employeeId, startTime, endTime, breaks = []) {
         return {
             "ReadOnly": false,
@@ -217,8 +221,7 @@
         const hoursByDate = new Map();
 
         // Iterate through each entry
-        for (let i = 0; i < fields.length; i += 1) {
-            console.log(i);
+        for (let i = 1; i < fields.length; i += 1) {
 
             // Extract fields for the current record
             const entry = fields[i];
@@ -231,35 +234,38 @@
                 let dateVal;
                 let curMonth;
                 let dateKey;
-
-                if (Number.isInteger(dateString)) {
-                    var returnVal = excelDateToJSDate(dateString);
-                    dateVal = returnVal[0];
-                    curMonth = returnVal[1];
-                    dateKey = dateVal.toISOString().slice(0, 10);
-
-                } else {
-                    var [day, mnth, year] = dateString.split('/');
-                    curMonth = mnth;
-                    console.log(curMonth);
-                    dateVal = new Date(`${year}-${curMonth}-${day}`);
-                    dateKey = `${year}-${mnth.padStart(2, '0')}-${day.padStart(2, '0')}`; // YYYY-MM-DD format
-
-                }
-
-                // Check if the month matches
-                if (month == curMonth) {
-                    if (!hoursByDate.has(dateKey)) {
-                        hoursByDate.set(dateKey, {
-                            totalHours: 0,
-                            date: dateVal
-                        });
+                try {
+                    if (Number.isInteger(dateString)) {
+                        var returnVal = excelDateToJSDate(dateString);
+                        dateVal = returnVal[0];
+                        curMonth = returnVal[1];
+                        dateKey = dateVal.toISOString().slice(0, 10);
+    
+                    } else {
+                        var [day, mnth, year] = dateString.split('/');
+                        curMonth = mnth;
+                        console.log(curMonth);
+                        dateVal = new Date(`${year}-${curMonth}-${day}`);
+                        dateKey = `${year}-${mnth.padStart(2, '0')}-${day.padStart(2, '0')}`; // YYYY-MM-DD format
+    
                     }
-
-                    const dayData = hoursByDate.get(dateKey);
-                    dayData.totalHours += hours;
-
+    
+                    // Check if the month matches
+                    if (month == curMonth) {
+                        if (!hoursByDate.has(dateKey)) {
+                            hoursByDate.set(dateKey, {
+                                totalHours: 0,
+                                date: dateVal
+                            });
+                        }
+    
+                        const dayData = hoursByDate.get(dateKey);
+                        dayData.totalHours += hours;
+                    }
+                } catch (error) {
+                    showAlert("Problem with entry- skipping this entry" + error.message);
                 }
+                
             }
         }
 
@@ -338,7 +344,6 @@
         return lastMonth.getMonth();
     }
 
-
     async function uploadAllDays(input, lastMonth) {
         var chosenMonth = null;
         if (lastMonth) {
@@ -393,7 +398,6 @@
         inputBox.style.borderRadius = '5px';
         inputBox.style.fontSize = '16px';
         inputBox.style.fontFamily = 'Arial, sans-serif';
-
 
         // Create radio buttons for last month and current month
         var radioLastMonth = document.createElement('input');
