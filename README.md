@@ -51,6 +51,7 @@ Tampermonkey will automatically check for script updates by default. If you want
 3. Upload the timesheeting csv via the "Choose file" button (this CSV is downloaded from the lists as the "Export to CSV" option as pictured below)
 
 ![csv](media/csvToDownload.png "CSV button")
+
 4. Choose whether you are uploading for the current month, or last month
 5. Press "UPLOAD TIMESHEETS"
 ![upload](media/uploadFrame.png "upload")
