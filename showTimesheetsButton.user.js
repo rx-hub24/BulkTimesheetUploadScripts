@@ -28,9 +28,27 @@
     openTimesheetsBtn.style.fontSize = '16px';
     openTimesheetsBtn.style.fontFamily = 'Arial, sans-serif';
 
+    function getLastDayOfCurrentMonth() {
+      // Step 1: Create a Date object for the current date.
+      const currentDate = new Date();
+      
+      // Step 2: Extract the year and month from the current date.
+      const year = currentDate.getFullYear();
+      const month = currentDate.getMonth(); // Note: January is 0, December is 11
+      
+      // Step 3: Find the last day of the current month.
+      // Adding 1 to the month and setting the day as 0 will give us the last day of the current month.
+      const lastDayDate = new Date(year, month + 1, 0);
+      
+      // Step 4: Format the date in YYYY-MM-DD format.
+      const formattedDate = `${lastDayDate.getFullYear()}-${String(lastDayDate.getMonth() + 1).padStart(2, '0')}-${String(lastDayDate.getDate()).padStart(2, '0')}`;
+      
+      return formattedDate;
+    }
     // Add click event listener to the button
     openTimesheetsBtn.addEventListener('click', function() {
-        window.location.href = document.querySelector('[data-testid="elmo-menu-timesheet"]').href;
+        var url = document.querySelector('[data-testid="elmo-menu-timesheet"]').href;
+        window.location.href = url + "/m/" + getLastDayOfCurrentMonth();
     });
 
     // Append the button to the body
