@@ -28,6 +28,16 @@
     openTimesheetsBtn.style.fontSize = '16px';
     openTimesheetsBtn.style.fontFamily = 'Arial, sans-serif';
 
+    function getEmployeeIdFromURL(currentUrl) {
+
+      // Use a regular expression to find the digit(s) following "Employee/"
+      const match = currentUrl.match(/Employee\/(\d+)/);
+
+      // match[1] contains the first capturing group, which is the sequence of digits we're interested in
+      // If a match is found, return it, otherwise return null or some default value
+      return match ? match[1] : null;
+  }
+
     function getLastDayOfCurrentMonth() {
       // Step 1: Create a Date object for the current date.
       const currentDate = new Date();
@@ -48,7 +58,7 @@
     // Add click event listener to the button
     openTimesheetsBtn.addEventListener('click', function() {
         var url = document.querySelector('[data-testid="elmo-menu-timesheet"]').href;
-        window.location.href = url + "m/" + getLastDayOfCurrentMonth();
+        window.location.href = url + "m/" + getLastDayOfCurrentMonth() + "/" + getEmployeeIdFromURL(url);
     });
 
     // Append the button to the body
