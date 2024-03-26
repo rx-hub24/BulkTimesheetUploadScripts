@@ -60,6 +60,7 @@
         var url = document.querySelector('[data-testid="elmo-menu-timesheet"]').href;
         var updatedUrl = url + "m/" + getLastDayOfCurrentMonth() + "/" + getEmployeeIdFromURL(url);
         window.location.href = updatedUrl;
+        console.log(updatedUrl);
     });
 
     // Append the button to the body
