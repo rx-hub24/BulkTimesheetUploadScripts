@@ -58,7 +58,8 @@
     // Add click event listener to the button
     openTimesheetsBtn.addEventListener('click', function() {
         var url = document.querySelector('[data-testid="elmo-menu-timesheet"]').href;
-        window.location.href = url + "m/" + getLastDayOfCurrentMonth() + "/" + getEmployeeIdFromURL(url);
+        var updatedUrl = url + "m/" + getLastDayOfCurrentMonth() + "/" + getEmployeeIdFromURL(url);
+        window.location.href = updatedUrl;
     });
 
     // Append the button to the body
