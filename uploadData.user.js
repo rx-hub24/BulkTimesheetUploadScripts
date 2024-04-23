@@ -230,7 +230,7 @@
             
             if (name == null || name == employee) {
                 const dateString = entry["Date"];
-                let hours = parseFloat(entry["Hours"]);
+                let hours = parseFloat(entry["Hours Worked"]);
                 let dateVal;
                 let curMonth;
                 let dateKey;
