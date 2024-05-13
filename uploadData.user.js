@@ -163,7 +163,7 @@
         const employeeId = getEmployeeIdFromURL();
         console.log(hoursByDate);
         console.log("collected hours");
-        const breakLength = 0.5;
+        
         let breakStart;
         let breakEnd;
         let totalHours;
@@ -173,6 +173,7 @@
         let breaks;
         hoursByDate.forEach((value, key) => {
             breaks = []
+            var breakLength = 0;
             totalHours = value.totalHours;
             date = value.date;
             console.log(totalHours);
@@ -183,16 +184,17 @@
             const startDateTime = new Date(ausStart.getTime() - timeZoneOffsetInMs);
 
             if (totalHours > 4) {
-             breakStart = new Date(startDateTime.getTime() + 3 * 60 * 60 * 1000);
-             breakEnd = new Date(breakStart.getTime() + 30 * 60 * 1000);
-             breaks.push({
-                start: breakStart.toISOString(),
-                end: breakEnd.toISOString(),
-                isPaid: false
-             });}
+                breakLength = 0.5;
+                breakStart = new Date(startDateTime.getTime() + 3 * 60 * 60 * 1000);
+                breakEnd = new Date(breakStart.getTime() + 30 * 60 * 1000);
+                breaks.push({
+                    start: breakStart.toISOString(),
+                    end: breakEnd.toISOString(),
+                    isPaid: false
+            });}
 
             const endDateTime = new Date(startDateTime.getTime() + (totalHours + breakLength) * 60 * 60 * 1000);
-
+            console.log(endDateTime);
             const entry = {
                 employeeId: employeeId || "Unknown",
                 daysWorked: [{
