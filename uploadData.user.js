@@ -338,12 +338,7 @@
     }
 
     function getCurrentMonth() {
-        let date = new Date(); // Gets the current date and time
-        let lastMonth = new Date(date.setMonth(date.getMonth()+1));
-
-        console.log(lastMonth.getMonth());
-
-        return lastMonth.getMonth();
+        return new Date().getMonth() + 1;
     }
 
     async function uploadAllDays(input, lastMonth) {
